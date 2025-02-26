@@ -1,5 +1,6 @@
 import pytest
 from flask import Flask
+from unittest.mock import patch  # ✅ Added this import
 from auth_routes import auth_bp
 
 
