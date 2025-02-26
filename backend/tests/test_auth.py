@@ -8,6 +8,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "app")))
 
+
 @pytest.fixture
 def app():
     """Fixture to create a Flask test app."""
@@ -18,10 +19,12 @@ def app():
     app.register_blueprint(auth_bp)
     return app
 
+
 @pytest.fixture
 def client(app):
     """Fixture to create a test client."""
     return app.test_client()
+
 
 
 def test_signup_missing_fields(client):
