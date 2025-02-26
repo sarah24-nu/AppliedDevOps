@@ -2,8 +2,6 @@ import pytest
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from auth_routes import auth_bp
-import sys
-import os
 
 
 @pytest.fixture
