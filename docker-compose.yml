@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+    volumes:
+      - ./backend:/app  # Enable hot reloading
+    depends_on:
+      - mongo
+    restart: always
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./frontend:/app  # Enable hot reloading
+    depends_on:
+      - backend
+    restart: always
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+
+volumes:
+  mongo_data:
