@@ -8,8 +8,8 @@ from auth_routes import auth_bp
 def app():
     """Fixture to create a Flask test app."""
     app = Flask(__name__)
-    app.config["JWT_SECRET_KEY"] = "test-key"  
-    app.config["TESTING"] = True  
+    app.config["JWT_SECRET_KEY"] = "test-key"
+    app.config["TESTING"] = True
     JWTManager(app)
     app.register_blueprint(auth_bp)
     return app
