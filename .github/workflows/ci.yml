@@ -101,3 +101,8 @@ jobs:
         run: |
           docker tag my-frontend mydockerhubusername/my-frontend:latest
           docker push mydockerhubusername/my-frontend:latest
+
+      - name: Tag & Push Backend Image
+        run: |
+          docker tag assignment1_backend muhiman/my-backend:latest
+          docker push muhiman/my-backend:latest
