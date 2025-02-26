@@ -64,6 +64,7 @@ jobs:
       - name: Log in to DockerHub
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
+
       - name: Build & Push Backend Image
         run: |
           docker build -t assignment1_backend backend
