@@ -77,11 +77,12 @@ jobs:
           docker tag assignment1_frontend muhiman/my-frontend:latest
           docker push muhiman/my-frontend:latest
 
-      - name: Build & Push MongoDB Image (if customized)
+      - name: Use Official MongoDB Image (Instead of Building)
         run: |
-          docker build -t assignment1_mongo database
-          docker tag assignment1_mongo muhiman/my-mongo:latest
+          docker pull mongo:latest
+          docker tag mongo muhiman/my-mongo:latest
           docker push muhiman/my-mongo:latest
+
 
   # ----------------------------------------
   # ✅ Job 3: Run Unit Tests
