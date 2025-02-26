@@ -1,8 +1,6 @@
 import pytest
 from flask import Flask
-from unittest.mock import patch, MagicMock
 from auth_routes import auth_bp
-from flask_jwt_extended import create_access_token
 
 
 @pytest.fixture
