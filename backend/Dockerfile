@@ -1,17 +1,16 @@
 # Stage 1: Builder
 FROM python:3.11-slim AS builder
 
-# Set working directory
+
 WORKDIR /app
 
-# Install dependencies separately for caching
+
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Stage 2: Final Image
 FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /app
 
 # Copy installed dependencies from the builder stage
@@ -19,8 +18,7 @@ COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/pytho
 COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Copy the rest of the application files
-COPY backend /app
-
+COPY backend/. /app
 # Set environment variables
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=development
