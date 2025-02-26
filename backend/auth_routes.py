@@ -90,7 +90,9 @@ def reset_password():
         hashed_password = generate_password_hash(new_password)
         user_model.update_password(email, hashed_password)
 
-        return jsonify({"success": True, "message": "Password reset successfully"}), 200
+        return jsonify(
+            {"success": True, "message": "Password reset successfully"}
+        ), 200
 
     except PyMongoError as e:
         return jsonify({"error": f"Database error: {str(e)}"}), 500
