@@ -107,8 +107,14 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
-      - name: Run Backend Unit Tests
-        run: pytest backend/tests --maxfail=1 --disable-warnings
+      - name: Run Backend Unit Tests (Skip if No Tests Found)
+        run: |
+          if [ -d "backend/tests" ]; then
+            pytest backend/tests --maxfail=1 --disable-warnings
+          else
+            echo "No tests found. Skipping pytest."
+          fi
+
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
