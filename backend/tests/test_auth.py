@@ -1,9 +1,7 @@
 import pytest
 from flask import Flask
-from unittest.mock import Mock, patch
 from flask_jwt_extended import JWTManager
-from app.routes.auth_routes import auth_bp, get_phonetic_breakdown
-from app.utils.auth_utils import hash_password, verify_password
+from auth_routes import auth_bp
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app')))
