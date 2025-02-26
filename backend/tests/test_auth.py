@@ -6,14 +6,14 @@ import sys
 import os
 
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "app")))
 
 @pytest.fixture
 def app():
     """Fixture to create a Flask test app."""
     app = Flask(__name__)
-    app.config['JWT_SECRET_KEY'] = 'test-key'  
-    app.config['TESTING'] = True  
+    app.config["JWT_SECRET_KEY"] = "test-key"  
+    app.config["TESTING"] = True  
     JWTManager(app)
     app.register_blueprint(auth_bp)
     return app
@@ -26,6 +26,6 @@ def client(app):
 
 def test_signup_missing_fields(client):
     """Test signup with missing fields."""
-    response = client.post('/signup', json={})
+    response = client.post("/signup", json={})
     assert response.status_code == 400
     assert b"Email and password are required" in response.data  
