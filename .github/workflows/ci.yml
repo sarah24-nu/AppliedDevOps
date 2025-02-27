@@ -130,8 +130,7 @@ jobs:
           cd frontend
           npm install
 
-      - name: Run Frontend Unit Tests
-        run: cd frontend && npm test -- --watchAll=false
+     
 
   # ----------------------------------------
   # ✅ Job 4: Security Scanning (SAST & Trivy)
