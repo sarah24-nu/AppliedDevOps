@@ -9,9 +9,6 @@ on:
       - main
 
 jobs:
-  # ----------------------------------------
-  # ✅ Job 1: Linting (Python + JavaScript)
-  # ----------------------------------------
   lint:
     name: Run Linter Checks
     runs-on: ubuntu-latest
@@ -46,9 +43,6 @@ jobs:
       - name: Run ESLint on Frontend
         run: cd frontend && npx eslint . --ext .js,.jsx,.ts,.tsx
 
-  # ----------------------------------------
-  # ✅ Job 2: Build & Push Docker Images
-  # ----------------------------------------
   build-and-push:
     name: Build & Push Docker Images
     runs-on: ubuntu-latest
@@ -83,10 +77,6 @@ jobs:
           docker tag mongo muhiman/my-mongo:latest
           docker push muhiman/my-mongo:latest
 
-
-  # ----------------------------------------
-  # ✅ Job 3: Run Unit Tests
-  # ----------------------------------------
   test:
     name: Run Unit Tests
     runs-on: ubuntu-latest
@@ -132,9 +122,6 @@ jobs:
 
      
 
-  # ----------------------------------------
-  # ✅ Job 4: Security Scanning (SAST & Trivy)
-  # ----------------------------------------
   security:
     name: Security Scan & SAST
     runs-on: ubuntu-latest
