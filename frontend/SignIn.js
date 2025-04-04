@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import * as Font from 'expo-font';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { apiClient, ENDPOINTS } from '../config/api';
+import { apiClient, ENDPOINTS } from './config/api';
 
 const SignInScreen = ({ navigation, setIsAuthenticated }) => {
   const [email, setEmail] = useState('');
@@ -27,7 +27,7 @@ const SignInScreen = ({ navigation, setIsAuthenticated }) => {
   useEffect(() => {
     async function loadFonts() {
       await Font.loadAsync({
-        OpenDyslexic: require('../assets/fonts/OpenDyslexic-Regular.otf'),
+        OpenDyslexic: require('./assets/fonts/OpenDyslexic-Regular.otf'),
       });
       setFontsLoaded(true);
     }

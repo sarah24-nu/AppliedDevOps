@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: dev
+data:
+  NODE_ENV: "development"
+  API_URL: "http://backend-service:3000"
+  MONGODB_URI: "mongodb://mongodb-service:27017"
+  DB_NAME: "audio_database"
+  LEVEL_DB_NAME: "level_database"
+  REDIS_HOST: "redis-service"
+  REDIS_PORT: "6379" 

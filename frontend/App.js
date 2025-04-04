@@ -3,12 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import SplashScreen from './Screens/ReadAid'; 
-import SignInScreen from './Screens/SignIn'; 
-import SignUpScreen from './Screens/Signup'; 
-import SignInWithGoogleScreen from './Screens/SignIn_with_google';
-import ForgetPasswordScreen from './Screens/ForgetPassword'; 
-import HomeScreen from './Screens/HomeScreen';
+//import SplashScreen from './Screens/ReadAid'; 
+import SignInScreen from './SignIn'; 
+import HomeScreen from './HomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,9 +29,9 @@ export default function App() {
     checkAuthState();
   }, []);
 
-  if (loading) {
-    return <SplashScreen />; // Show splash screen while checking authentication
-  }
+  //if (loading) {
+  //  return <SplashScreen />; // Show splash screen while checking authentication
+  //}
 
   return (
     <NavigationContainer>
@@ -48,9 +45,6 @@ export default function App() {
             <Stack.Screen name="SignIn">
               {(props) => <SignInScreen {...props} setIsAuthenticated={setIsAuthenticated} />}
             </Stack.Screen>
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
-            <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
-            <Stack.Screen name="SignInWithGoogle" component={SignInWithGoogleScreen} />
           </>
         )}
       </Stack.Navigator>

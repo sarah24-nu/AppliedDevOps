@@ -1,0 +1,52 @@
+global:
+  environment: production
+
+backend:
+  replicas: 3
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+    limits:
+      memory: "1Gi"
+      cpu: "1000m"
+  env:
+    NODE_ENV: "production"
+    MONGODB_URI: "mongodb://mongodb-service:27017"
+    DB_NAME: "audio_database"
+    LEVEL_DB_NAME: "level_database"
+
+frontend:
+  replicas: 3
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "200m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+mongodb:
+  replicas: 1
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+    limits:
+      memory: "1Gi"
+      cpu: "1000m"
+  persistence:
+    size: 5Gi
+
+ingress:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: yourdomain.com
+      paths:
+        - path: /
+          pathType: Prefix
+          service: frontend
+        - path: /api
+          pathType: Prefix
+          service: backend 
