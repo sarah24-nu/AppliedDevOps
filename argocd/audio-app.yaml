@@ -1,0 +1,64 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: audio-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/sarah24-nu/AppliedDevOps.git
+    targetRevision: HEAD
+    path: helm/audio-app
+    helm:
+      valueFiles:
+        - values-{{ .Values.environment }}.yaml
+      parameters:
+        - name: environment
+          value: {{ .Values.environment }}
+        - name: rbac.enabled
+          value: "true"
+        - name: ingress.enabled
+          value: "true"
+        - name: mongodb.enabled
+          value: "true"
+        - name: postgresql.enabled
+          value: "true"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.environment }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+    health:
+      timeout: 300
+    ignoreDifferences:
+      - group: apps
+        kind: Deployment
+        jsonPointers:
+          - /spec/replicas
+      - group: autoscaling
+        kind: HorizontalPodAutoscaler
+        jsonPointers:
+          - /spec/minReplicas
+          - /spec/maxReplicas
+          - /spec/currentReplicas
+    hooks:
+      preSync:
+        - name: pre-sync-check
+          command: ["sh", "-c", "kubectl get namespace {{ .Values.environment }} || kubectl create namespace {{ .Values.environment }}"]
+      postSync:
+        - name: post-sync-check
+          command: ["sh", "-c", "kubectl rollout status deployment/{{ .Release.Name }}-backend -n {{ .Values.environment }}"] 

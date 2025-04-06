@@ -1,0 +1,40 @@
+{{- if .Values.rbac.enabled -}}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Release.Name }}-sa
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "audio-app.labels" . | nindent 4 }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Release.Name }}-role
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "audio-app.labels" . | nindent 4 }}
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "secrets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Release.Name }}-rolebinding
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "audio-app.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ .Release.Name }}-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Release.Name }}-sa
+    namespace: {{ .Release.Namespace }}
+{{- end }} 

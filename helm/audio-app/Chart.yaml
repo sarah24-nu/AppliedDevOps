@@ -3,4 +3,25 @@ name: audio-app
 description: A Helm chart for the Audio Application
 type: application
 version: 0.1.0
-appVersion: "1.0.0" 
+appVersion: "1.0.0"
+maintainers:
+  - name: Sarah
+    email: f219402@cfd.nu.edu.pk
+  - name: Abdul Muhiman
+    email: f219410@cfd.nu.edu.pk
+keywords:
+  - audio
+  - flask
+  - mongodb
+home: https://github.com/sarah24-nu/AppliedDevOps
+sources:
+  - https://github.com/sarah24-nu/AppliedDevOps
+dependencies:
+  - name: mongodb
+    version: "12.1.31"
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enabled
+  - name: postgresql
+    version: "12.1.9"
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled 

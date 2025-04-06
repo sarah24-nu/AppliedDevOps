@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../helm/audio-app/templates/backend-deployment.yaml
+  - ../../helm/audio-app/templates/backend-service.yaml
+  - ../../helm/audio-app/templates/mongodb-deployment.yaml
+  - ../../helm/audio-app/templates/mongodb-service.yaml
+  - ../../helm/audio-app/templates/mongodb-pvc.yaml
+  - ../../helm/audio-app/templates/secrets.yaml
+  - ../../helm/audio-app/templates/rbac.yaml
+  - ../../helm/audio-app/templates/ingress.yaml
+
+commonLabels:
+  app: audio-app
+  environment: base 

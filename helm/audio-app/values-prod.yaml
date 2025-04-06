@@ -1,0 +1,64 @@
+global:
+  environment: prod
+
+frontend:
+  replicaCount: 3
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "256Mi"
+    limits:
+      cpu: "400m"
+      memory: "512Mi"
+
+backend:
+  replicaCount: 3
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "256Mi"
+    limits:
+      cpu: "400m"
+      memory: "512Mi"
+
+mongodb:
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "1000m"
+      memory: "1Gi"
+  persistence:
+    size: 10Gi
+
+postgresql:
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "1000m"
+      memory: "1Gi"
+  persistence:
+    size: 10Gi
+
+ingress:
+  enabled: true
+  hosts:
+    - host: prod.audio-app.com
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: frontend
+              port:
+                number: 3000
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: backend
+              port:
+                number: 5000 

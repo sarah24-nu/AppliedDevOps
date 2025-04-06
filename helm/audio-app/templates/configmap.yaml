@@ -3,6 +3,11 @@ kind: ConfigMap
 metadata:
   name: app-config
   namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 data:
   NODE_ENV: {{ .Values.backend.env.NODE_ENV | quote }}
   API_URL: {{ printf "http://%s-service:%d" .Values.backend.name .Values.backend.port | quote }}

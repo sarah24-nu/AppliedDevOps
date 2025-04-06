@@ -2,6 +2,8 @@ global:
   environment: production
 
 backend:
+  name: backend
+  port: 5000
   replicas: 3
   resources:
     requests:
@@ -15,6 +17,7 @@ backend:
     MONGODB_URI: "mongodb://mongodb-service:27017"
     DB_NAME: "audio_database"
     LEVEL_DB_NAME: "level_database"
+    JWT_SECRET: "supersecretkey-prod"
 
 frontend:
   replicas: 3
@@ -37,6 +40,15 @@ mongodb:
       cpu: "1000m"
   persistence:
     size: 5Gi
+  auth:
+    username: "f219410"
+    password: "muhiman72724"
+
+redis:
+  host: "redis-service"
+  port: "6379"
+  auth:
+    password: "redispass-prod"
 
 ingress:
   annotations:

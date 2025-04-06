@@ -15,6 +15,7 @@ backend:
     MONGODB_URI: "mongodb://mongodb-service:27017"
     DB_NAME: "audio_database"
     LEVEL_DB_NAME: "level_database"
+    JWT_SECRET: "supersecretkey"
 
 frontend:
   replicas: 2
@@ -37,6 +38,13 @@ mongodb:
       cpu: "500m"
   persistence:
     size: 1Gi
+  auth:
+    username: "f219410"
+    password: "muhiman72724"
+
+redis:
+  auth:
+    password: "redispass"
 
 ingress:
   hosts:

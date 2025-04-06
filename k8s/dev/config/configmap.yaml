@@ -4,10 +4,10 @@ metadata:
   name: app-config
   namespace: dev
 data:
-  NODE_ENV: "development"
-  API_URL: "http://backend-service:3000"
-  MONGODB_URI: "mongodb://mongodb-service:27017"
-  DB_NAME: "audio_database"
+  API_URL: "http://backend:5000"
+  NODE_ENV: "production"
+  MONGODB_URI: "mongodb://admin:password@mongodb:27017/admin"
+  DB_NAME: "app_db"
   LEVEL_DB_NAME: "level_database"
   REDIS_HOST: "redis-service"
   REDIS_PORT: "6379" 
