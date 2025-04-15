@@ -48,4 +48,53 @@ Selector labels
 {{- define "audio-app.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "audio-app.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }} 
+{{- end }}
+
+# Create network-policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: backend-network-policy
+  namespace: dev
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: frontend
+    ports:
+    - protocol: TCP
+      port: 5000
+
+# Create peer-authentication.yaml
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: dev
+spec:
+  mtls:
+    mode: STRICT
+
+# Add to application.yaml
+spec:
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ServerSideApply=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+    health:
+      timeout: 300 

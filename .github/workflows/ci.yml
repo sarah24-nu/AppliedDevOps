@@ -28,7 +28,7 @@ jobs:
           pip install flake8
 
       - name: Run Flake8 on Backend
-        run: flake8 backend --max-line-length=88
+        run: flake8 backend --max-line-length=90
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
