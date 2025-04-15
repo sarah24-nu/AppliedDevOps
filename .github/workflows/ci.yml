@@ -41,7 +41,7 @@ jobs:
           npm install eslint --save-dev
 
       - name: Run ESLint on Frontend
-        run: cd frontend && npx eslint . --ext .js,.jsx,.ts,.tsx
+        run: cd frontend && npx eslint .js,.jsx,.ts,.tsx
 
   build-and-push:
     name: Build & Push Docker Images
