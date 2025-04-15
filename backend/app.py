@@ -18,7 +18,6 @@ jwt = JWTManager(app)
 # MongoDB Setup
 client = MongoClient(app.config["MONGODB_URI"])
 db = client[app.config["DB_NAME"]]
-//mongo
 
 # Register authentication blueprint
 app.register_blueprint(auth_bp, url_prefix="/api")
